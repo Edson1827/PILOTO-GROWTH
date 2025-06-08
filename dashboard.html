@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 COMPANY - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #F9FAFB;
+            color: #111827;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 240px;
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            padding: 24px 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .sidebar-logo {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-logo img {
+            height: 32px;
+        }
+        
+        .sidebar-menu {
+            margin-top: 24px;
+        }
+        
+        .sidebar-menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .sidebar-menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-menu-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-left: 3px solid #3B82F6;
+        }
+        
+        .sidebar-menu-item-icon {
+            margin-right: 16px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 240px;
+            padding: 24px;
+            min-height: 100vh;
+        }
+        
+        /* Topbar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0 24px 0;
+            border-bottom: 1px solid #E5E7EB;
+            margin-bottom: 24px;
+        }
+        
+        .topbar-left h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .topbar-search {
+            position: relative;
+            margin-right: 24px;
+        }
+        
+        .topbar-search input {
+            padding: 8px 16px 8px 40px;
+            border-radius: 4px;
+            border: 1px solid #E5E7EB;
+            background-color: #F9FAFB;
+            width: 240px;
+        }
+        
+        .topbar-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B7280;
+        }
+        
+        .topbar-notification {
+            margin-right: 16px;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #F9FAFB;
+            cursor: pointer;
+        }
+        
+        .topbar-notification:hover {
+            background-color: #F3F4F6;
+        }
+        
+        .topbar-notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #EF4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .topbar-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .topbar-profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            overflow: hidden;
+        }
+        
+        .topbar-profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .topbar-profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topbar-profile-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .topbar-profile-role {
+            font-size: 12px;
+            color: #6B7280;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        
+        /* Summary Cards */
+        .summary-section {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .summary-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-card-title {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .summary-card-title i {
+            margin-right: 8px;
+            color: #3B82F6;
+        }
+        
+        .summary-card-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .summary-card-trend {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .summary-card-trend i {
+            margin-right: 4px;
+        }
+        
+        .summary-card-trend-positive {
+            color: #10B981;
+        }
+        
+        .summary-card-trend-negative {
+            color: #EF4444;
+        }
+        
+        /* Performance Chart */
+        .performance-chart {
+            grid-column: span 8;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .chart-actions {
+            display: flex;
+        }
+        
+        .chart-action-button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #E5E7EB;
+            background-color: #FFFFFF;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chart-action-button:hover {
+            background-color: #F9FAFB;
+        }
+        
+        .chart-action-button i {
+            margin-right: 6px;
+        }
+        
+        .chart-container {
+            height: 300px;
+            background-color: #F9FAFB;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+        
+        /* Campaign Performance */
+        .campaign-performance {
+            grid-column: span 4;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+        
+        .campaign-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .campaign-header-icon {
+            margin-right: 8px;
+            color: #3B82F6;
+        }
+        
+        .campaign-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .campaign-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .campaign-item {
+            padding: 16px;
+            border-radius: 8px;
+            background-color: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .campaign-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .campaign-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .campaign-item-metrics {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6B7280;
+        }
+        
+        .campaign-item-metric {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .campaign-item-metric-value {
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        /* Audience Insights */
+        .audience-insights {
+            grid-column: span 6;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .insights-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .insights-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .insights-chart {
+            height: 250px;
+            background-color: #F9FAFB;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+        
+        /* Recent Activities */
+        .recent-activities {
+            grid-column: span 6;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .activities-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .activities-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #EBF5FF;
+            color: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #6B7280;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #E5E7EB;
+            text-align: center;
+            color: #6B7280;
+            font-size: 14px;
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-button {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 200;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1199px) {
+            .sidebar {
+                width: 64px;
+            }
+            
+            .sidebar-menu-item-text {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 64px;
+            }
+            
+            .summary-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .performance-chart {
+                grid-column: span 12;
+            }
+            
+            .campaign-performance {
+                grid-column: span 12;
+            }
+            
+            .audience-insights {
+                grid-column: span 12;
+            }
+            
+            .recent-activities {
+                grid-column: span 12;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .mobile-menu-button {
+                display: flex;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+                width: 240px;
+            }
+            
+            .sidebar.open .sidebar-menu-item-text {
+                display: inline;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            
+            .topbar {
+                padding-top: 40px;
+            }
+            
+            .topbar-search {
+                display: none;
+            }
+            
+            .summary-section {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .dashboard-grid {
+                gap: 16px;
+            }
+            
+            .chart-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .chart-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-button">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="https://via.placeholder.com/120x32/1E3A8A/FFFFFF?text=F8+COMPANY" alt="F8 COMPANY">
+        </div>
+        <div class="sidebar-menu">
+            <div class="sidebar-menu-item active">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Dashboard</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Growth Copilot</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Campanhas</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Detecção de Fraude</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Orquestrador</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Audiências</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Relatórios</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Configurações</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar...">
+                </div>
+                <div class="topbar-notification">
+                    <i class="fas fa-bell"></i>
+                    <div class="topbar-notification-badge">3</div>
+                </div>
+                <div class="topbar-profile">
+                    <div class="topbar-profile-avatar">
+                        <img src="https://via.placeholder.com/40x40" alt="Avatar">
+                    </div>
+                    <div class="topbar-profile-info">
+                        <div class="topbar-profile-name">João Silva</div>
+                        <div class="topbar-profile-role">Administrador</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary Cards -->
+        <div class="summary-section">
+            <div class="summary-card">
+                <div class="summary-card-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Investimento Total
+                </div>
+                <div class="summary-card-value">R$ 45.678</div>
+                <div class="summary-card-trend summary-card-trend-positive">
+                    <i class="fas fa-arrow-up"></i>
+                    12.5% vs. período anterior
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-title">
+                    <i class="fas fa-chart-line"></i>
+                    ROAS Médio
+                </div>
+                <div class="summary-card-value">3.2x</div>
+                <div class="summary-card-trend summary-card-trend-positive">
+                    <i class="fas fa-arrow-up"></i>
+                    8.3% vs. período anterior
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Conversões
+                </div>
+                <div class="summary-card-value">1.245</div>
+                <div class="summary-card-trend summary-card-trend-positive">
+                    <i class="fas fa-arrow-up"></i>
+                    15.2% vs. período anterior
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card-title">
+                    <i class="fas fa-dollar-sign"></i>
+                    CPA Médio
+                </div>
+                <div class="summary-card-value">R$ 36.70</div>
+                <div class="summary-card-trend summary-card-trend-negative">
+                    <i class="fas fa-arrow-down"></i>
+                    5.8% vs. período anterior
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Performance Chart -->
+            <div class="performance-chart">
+                <div class="chart-header">
+                    <div class="chart-title">Desempenho de Campanhas</div>
+                    <div class="chart-actions">
+                        <div class="chart-action-button">
+                            <i class="fas fa-calendar-alt"></i>
+                            Últimos 30 dias
+                        </div>
+                        <div class="chart-action-button">
+                            <i class="fas fa-download"></i>
+                            Exportar
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    [Gráfico de Desempenho]
+                </div>
+            </div>
+            
+            <!-- Campaign Performance -->
+            <div class="campaign-performance">
+                <div class="campaign-header">
+                    <div class="campaign-header-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="campaign-title">Top Campanhas</div>
+                </div>
+                <div class="campaign-list">
+                    <div class="campaign-item">
+                        <div class="campaign-item-title">Verão 2025</div>
+                        <div class="campaign-item-metrics">
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">R$ 12.450</div>
+                                <div>Investimento</div>
+                            </div>
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">4.2x</div>
+                                <div>ROAS</div>
+                            </div>
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">R$ 28.50</div>
+                                <div>CPA</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campaign-item">
+                        <div class="campaign-item-title">Black Friday Antecipada</div>
+                        <div class="campaign-item-metrics">
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">R$ 8.750</div>
+                                <div>Investimento</div>
+                            </div>
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">3.8x</div>
+                                <div>ROAS</div>
+                            </div>
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">R$ 32.10</div>
+                                <div>CPA</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campaign-item">
+                        <div class="campaign-item-title">Remarketing Inteligente</div>
+                        <div class="campaign-item-metrics">
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">R$ 5.320</div>
+                                <div>Investimento</div>
+                            </div>
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">5.1x</div>
+                                <div>ROAS</div>
+                            </div>
+                            <div class="campaign-item-metric">
+                                <div class="campaign-item-metric-value">R$ 24.80</div>
+                                <div>CPA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Audience Insights -->
+            <div class="audience-insights">
+                <div class="insights-header">
+                    <div class="insights-title">Insights de Audiência</div>
+                </div>
+                <div class="insights-chart">
+                    [Gráfico de Audiência]
+                </div>
+            </div>
+            
+            <!-- Recent Activities -->
+            <div class="recent-activities">
+                <div class="activities-header">
+                    <div class="activities-title">Atividades Recentes</div>
+                </div>
+                <div class="activities-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Growth Copilot otimizou segmentação da campanha "Verão 2025"</div>
+                            <div class="activity-time">Hoje, 14:32</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Detecção de Fraude bloqueou 128 cliques suspeitos</div>
+                            <div class="activity-time">Hoje, 11:15</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Nova campanha "Black Friday Antecipada" criada</div>
+                            <div class="activity-time">Ontem, 18:47</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Relatório mensal de desempenho gerado</div>
+                            <div class="activity-time">Ontem, 09:23</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            F8 COMPANY
+        </div>
+    </div>
+    
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 COMPANY - Onboarding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #F9FAFB;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #FFFFFF;
+            padding: 16px 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-logo img {
+            height: 32px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .header-action-button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .header-action-primary {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+        
+        .header-action-primary:hover {
+            background-color: #2563EB;
+        }
+        
+        .header-action-secondary {
+            background-color: #FFFFFF;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .header-action-secondary:hover {
+            background-color: #F9FAFB;
+            color: #111827;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 48px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Onboarding Container */
+        .onboarding-container {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+        
+        /* Onboarding Header */
+        .onboarding-header {
+            padding: 32px;
+            text-align: center;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .onboarding-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .onboarding-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            padding: 0 32px;
+            margin-bottom: 32px;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background-color: #E5E7EB;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #3B82F6;
+            width: 33%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+        
+        .progress-step {
+            font-size: 14px;
+            color: #6B7280;
+        }
+        
+        .progress-step.active {
+            color: #3B82F6;
+            font-weight: 500;
+        }
+        
+        .progress-step.completed {
+            color: #10B981;
+        }
+        
+        /* Onboarding Content */
+        .onboarding-content {
+            padding: 32px;
+        }
+        
+        .onboarding-section {
+            margin-bottom: 32px;
+        }
+        
+        .onboarding-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #D1D5DB;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #D1D5DB;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            padding-right: 40px;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .form-checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            accent-color: #3B82F6;
+        }
+        
+        .form-checkbox-label {
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        /* Integration Cards */
+        .integration-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        
+        .integration-card {
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .integration-card:hover {
+            border-color: #3B82F6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .integration-card.selected {
+            border-color: #3B82F6;
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .integration-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background-color: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        
+        .integration-icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        
+        .integration-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .integration-description {
+            font-size: 12px;
+            color: #6B7280;
+        }
+        
+        /* Onboarding Actions */
+        .onboarding-actions {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        .onboarding-action-button {
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .onboarding-action-primary {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+        
+        .onboarding-action-primary:hover {
+            background-color: #2563EB;
+        }
+        
+        .onboarding-action-primary i {
+            margin-left: 8px;
+        }
+        
+        .onboarding-action-secondary {
+            background-color: #FFFFFF;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .onboarding-action-secondary:hover {
+            background-color: #F9FAFB;
+            color: #111827;
+        }
+        
+        .onboarding-action-secondary i {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #FFFFFF;
+            padding: 24px;
+            text-align: center;
+            color: #6B7280;
+            font-size: 14px;
+            border-top: 1px solid #E5E7EB;
+            margin-top: auto;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .integration-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .main-content {
+                padding: 24px 16px;
+            }
+            
+            .onboarding-header {
+                padding: 24px 16px;
+            }
+            
+            .progress-container {
+                padding: 0 16px;
+                margin-bottom: 24px;
+            }
+            
+            .onboarding-content {
+                padding: 24px 16px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .integration-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .onboarding-actions {
+                flex-direction: column-reverse;
+                gap: 12px;
+            }
+            
+            .onboarding-action-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-logo">
+            <img src="https://via.placeholder.com/120x32/1E3A8A/FFFFFF?text=F8+COMPANY" alt="F8 COMPANY">
+        </div>
+        <div class="header-actions">
+            <div class="header-action-button header-action-secondary">Suporte</div>
+            <div class="header-action-button header-action-primary">Entrar</div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Onboarding Container -->
+        <div class="onboarding-container">
+            <!-- Onboarding Header -->
+            <div class="onboarding-header">
+                <div class="onboarding-title">Bem-vindo à F8 COMPANY</div>
+                <div class="onboarding-subtitle">Vamos configurar sua conta para que você possa começar a escalar seu negócio com Growth Marketing inteligente.</div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="progress-step active">Informações Básicas</div>
+                    <div class="progress-step">Integrações</div>
+                    <div class="progress-step">Objetivos</div>
+                </div>
+            </div>
+            
+            <!-- Onboarding Content -->
+            <div class="onboarding-content">
+                <div class="onboarding-section">
+                    <div class="onboarding-section-title">Informações da Empresa</div>
+                    <div class="form-group">
+                        <label class="form-label">Nome da Empresa</label>
+                        <input type="text" class="form-input" placeholder="Ex: Minha Empresa Ltda.">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Segmento</label>
+                            <select class="form-select">
+                                <option value="" disabled selected>Selecione um segmento</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="saas">SaaS</option>
+                                <option value="servicos">Serviços</option>
+                                <option value="educacao">Educação</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tamanho da Empresa</label>
+                            <select class="form-select">
+                                <option value="" disabled selected>Selecione o tamanho</option>
+                                <option value="1-10">1-10 funcionários</option>
+                                <option value="11-50">11-50 funcionários</option>
+                                <option value="51-200">51-200 funcionários</option>
+                                <option value="201+">201+ funcionários</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Site</label>
+                        <input type="url" class="form-input" placeholder="https://www.seusite.com.br">
+                    </div>
+                </div>
+                
+                <div class="onboarding-section">
+                    <div class="onboarding-section-title">Informações de Contato</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nome</label>
+                            <input type="text" class="form-input" placeholder="Seu nome">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sobrenome</label>
+                            <input type="text" class="form-input" placeholder="Seu sobrenome">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">E-mail Corporativo</label>
+                            <input type="email" class="form-input" placeholder="seu.email@empresa.com.br">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Telefone</label>
+                            <input type="tel" class="form-input" placeholder="(00) 00000-0000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cargo</label>
+                        <select class="form-select">
+                            <option value="" disabled selected>Selecione seu cargo</option>
+                            <option value="ceo">CEO / Fundador</option>
+                            <option value="cmo">CMO / Diretor de Marketing</option>
+                            <option value="marketing">Gerente de Marketing</option>
+                            <option value="growth">Growth Hacker / Growth Manager</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="onboarding-section">
+                    <div class="onboarding-section-title">Canais de Marketing Atuais</div>
+                    <div class="form-group">
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="channel-facebook" class="form-checkbox">
+                            <label for="channel-facebook" class="form-checkbox-label">Facebook Ads</label>
+                        </div>
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="channel-google" class="form-checkbox">
+                            <label for="channel-google" class="form-checkbox-label">Google Ads</label>
+                        </div>
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="channel-instagram" class="form-checkbox">
+                            <label for="channel-instagram" class="form-checkbox-label">Instagram Ads</label>
+                        </div>
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="channel-tiktok" class="form-checkbox">
+                            <label for="channel-tiktok" class="form-checkbox-label">TikTok Ads</label>
+                        </div>
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="channel-email" class="form-checkbox">
+                            <label for="channel-email" class="form-checkbox-label">E-mail Marketing</label>
+                        </div>
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="channel-other" class="form-checkbox">
+                            <label for="channel-other" class="form-checkbox-label">Outros</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Onboarding Actions -->
+                <div class="onboarding-actions">
+                    <div class="onboarding-action-button onboarding-action-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        Voltar
+                    </div>
+                    <div class="onboarding-action-button onboarding-action-primary">
+                        Próximo
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        F8 COMPANY
+    </div>
+</body>
+</html>

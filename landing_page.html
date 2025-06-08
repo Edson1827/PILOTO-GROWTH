@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 COMPANY - Piloto Visual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #F9FAFB;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #FFFFFF;
+            padding: 16px 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-logo img {
+            height: 32px;
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .header-nav-item {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6B7280;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .header-nav-item:hover {
+            color: #111827;
+        }
+        
+        .header-nav-item.active {
+            color: #3B82F6;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .header-action-button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .header-action-primary {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+        
+        .header-action-primary:hover {
+            background-color: #2563EB;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 48px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            margin-bottom: 64px;
+        }
+        
+        .hero-content {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: #111827;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        
+        .hero-title span {
+            color: #3B82F6;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .hero-button {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .hero-button-primary {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+        
+        .hero-button-primary:hover {
+            background-color: #2563EB;
+        }
+        
+        .hero-button-secondary {
+            background-color: #FFFFFF;
+            color: #3B82F6;
+            border: 1px solid #3B82F6;
+        }
+        
+        .hero-button-secondary:hover {
+            background-color: #EBF5FF;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Features Section */
+        .features-section {
+            margin-bottom: 64px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .feature-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background-color: #EBF5FF;
+            color: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 24px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+        
+        .feature-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            margin-bottom: 64px;
+            background-color: #F3F4F6;
+            padding: 64px 0;
+        }
+        
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+        
+        .testimonial-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .testimonial-content {
+            font-size: 16px;
+            color: #4B5563;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: '"';
+            font-size: 64px;
+            color: #E5E7EB;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: serif;
+            z-index: 0;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 16px;
+        }
+        
+        .testimonial-author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial-author-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .testimonial-author-role {
+            font-size: 14px;
+            color: #6B7280;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            margin-bottom: 64px;
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        
+        .pricing-toggle-option {
+            font-size: 16px;
+            font-weight: 500;
+            color: #6B7280;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .pricing-toggle-option.active {
+            color: #111827;
+            font-weight: 600;
+        }
+        
+        .pricing-toggle-switch {
+            width: 48px;
+            height: 24px;
+            background-color: #3B82F6;
+            border-radius: 12px;
+            margin: 0 16px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .pricing-toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s ease;
+        }
+        
+        .pricing-toggle-switch.annual::after {
+            transform: translateX(24px);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .pricing-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid #3B82F6;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular::before {
+            content: 'Recomendado';
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+        
+        .pricing-header {
+            margin-bottom: 24px;
+        }
+        
+        .pricing-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .pricing-description {
+            font-size: 14px;
+            color: #6B7280;
+        }
+        
+        .pricing-price {
+            margin-bottom: 24px;
+        }
+        
+        .pricing-amount {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .pricing-period {
+            font-size: 14px;
+            color: #6B7280;
+        }
+        
+        .pricing-features {
+            margin-bottom: 32px;
+            flex: 1;
+        }
+        
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #4B5563;
+        }
+        
+        .pricing-feature i {
+            color: #10B981;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .pricing-action {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .pricing-action-primary {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+        
+        .pricing-action-primary:hover {
+            background-color: #2563EB;
+        }
+        
+        .pricing-action-secondary {
+            background-color: #FFFFFF;
+            color: #3B82F6;
+            border: 1px solid #3B82F6;
+        }
+        
+        .pricing-action-secondary:hover {
+            background-color: #EBF5FF;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background-color: #1E3A8A;
+            padding: 64px 0;
+            color: #FFFFFF;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .cta-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .cta-subtitle {
+            font-size: 18px;
+            color: #E5E7EB;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        
+        .cta-button {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #FFFFFF;
+            color: #1E3A8A;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background-color: #F3F4F6;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #FFFFFF;
+            padding: 24px;
+            text-align: center;
+            color: #6B7280;
+            font-size: 14px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .hero-section {
+                flex-direction: column;
+                gap: 32px;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+            
+            .pricing-card.popular {
+                grid-column: span 2;
+                margin-bottom: 24px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-nav {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.popular {
+                grid-column: span 1;
+                transform: scale(1);
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-logo">
+            <img src="https://via.placeholder.com/120x32/1E3A8A/FFFFFF?text=F8+COMPANY" alt="F8 COMPANY">
+        </div>
+        <div class="header-nav">
+            <div class="header-nav-item active">Início</div>
+            <div class="header-nav-item">Funcionalidades</div>
+            <div class="header-nav-item">Preços</div>
+            <div class="header-nav-item">Sobre</div>
+            <div class="header-nav-item">Contato</div>
+        </div>
+        <div class="header-actions">
+            <div class="header-action-button header-action-primary">Começar Agora</div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Escale seu negócio com <span>Growth Marketing</span> inteligente</h1>
+                <p class="hero-subtitle">A F8 COMPANY combina IA avançada e automação para maximizar seus resultados de marketing com 90% menos esforço e custos reduzidos.</p>
+                <div class="hero-actions">
+                    <div class="hero-button hero-button-primary">Começar Gratuitamente</div>
+                    <div class="hero-button hero-button-secondary">Ver Demonstração</div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/600x400/EBF5FF/1E3A8A?text=Dashboard+F8" alt="Dashboard F8 COMPANY">
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features-section">
+            <div class="section-header">
+                <h2 class="section-title">Funcionalidades Poderosas</h2>
+                <p class="section-subtitle">Tudo o que você precisa para impulsionar seu crescimento em uma única plataforma.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Growth Copilot</h3>
+                    <p class="feature-description">Assistente de IA que analisa seus dados, identifica oportunidades e sugere otimizações para suas campanhas em tempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Detecção de Fraude</h3>
+                    <p class="feature-description">Sistema avançado que identifica e bloqueia cliques fraudulentos, economizando até 30% do seu orçamento de marketing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3 class="feature-title">Orquestrador de Campanhas</h3>
+                    <p class="feature-description">Crie fluxos de marketing complexos com interface visual intuitiva, automatizando ações em múltiplos canais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Analytics Avançado</h3>
+                    <p class="feature-description">Visualize métricas de desempenho em tempo real e obtenha insights acionáveis para melhorar seus resultados.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Segmentação Inteligente</h3>
+                    <p class="feature-description">Identifique e segmente seu público-alvo com precisão usando algoritmos de IA que analisam comportamentos e padrões.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="feature-title">Integrações Nativas</h3>
+                    <p class="feature-description">Conecte-se facilmente com mais de 50 plataformas, incluindo Google, Meta, TikTok, LinkedIn e ferramentas de CRM.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Testimonials Section -->
+    <div class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="section-header">
+                <h2 class="section-title">O que nossos clientes dizem</h2>
+                <p class="section-subtitle">Empresas de todos os tamanhos estão transformando seus resultados com a F8 COMPANY.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        A F8 COMPANY revolucionou nossa estratégia de marketing. Conseguimos reduzir o CPA em 42% e aumentar o ROAS em 3.5x em apenas dois meses. A detecção de fraude sozinha economizou mais de R$15 mil por mês.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-avatar">
+                            <img src="https://via.placeholder.com/48x48" alt="Avatar">
+                        </div>
+                        <div class="testimonial-author-info">
+                            <div class="testimonial-author-name">Ana Silva</div>
+                            <div class="testimonial-author-role">CMO, TechShop Brasil</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        Como uma PME, não tínhamos recursos para contratar uma equipe de marketing completa. A F8 nos permitiu competir com empresas muito maiores, automatizando 95% das tarefas e gerando resultados impressionantes.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-avatar">
+                            <img src="https://via.placeholder.com/48x48" alt="Avatar">
+                        </div>
+                        <div class="testimonial-author-info">
+                            <div class="testimonial-author-name">Carlos Mendes</div>
+                            <div class="testimonial-author-role">CEO, Mendes Móveis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pricing Section -->
+    <div class="main-content">
+        <div class="pricing-section">
+            <div class="section-header">
+                <h2 class="section-title">Planos que se adaptam ao seu negócio</h2>
+                <p class="section-subtitle">Escolha o plano ideal para suas necessidades e objetivos de crescimento.</p>
+            </div>
+            <div class="pricing-toggle">
+                <div class="pricing-toggle-option">Mensal</div>
+                <div class="pricing-toggle-switch annual"></div>
+                <div class="pricing-toggle-option active">Anual (20% de desconto)</div>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Starter</div>
+                        <div class="pricing-description">Ideal para pequenas empresas iniciando com marketing digital</div>
+                    </div>
+                    <div class="pricing-price">
+                        <div class="pricing-amount">12x de R$ 197</div>
+                        <div class="pricing-period">ou R$ 2.364 à vista</div>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>2 campanhas ativas</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>4 criativos por mês</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Otimização de anúncios</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Estratégia de conversão</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Relatórios mensais</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Suporte por WhatsApp</div>
+                        </div>
+                    </div>
+                    <div class="pricing-action pricing-action-secondary">Começar Agora</div>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Aceleração</div>
+                        <div class="pricing-description">Para empresas que buscam crescimento consistente</div>
+                    </div>
+                    <div class="pricing-price">
+                        <div class="pricing-amount">12x de R$ 397</div>
+                        <div class="pricing-period">ou R$ 4.764 à vista</div>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>4 campanhas ativas</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>8 criativos por mês</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Sistema completo de funil</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Estratégia omnichannel</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Relatórios quinzenais</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Suporte Prioritário</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Detecção de Fraude</div>
+                        </div>
+                    </div>
+                    <div class="pricing-action pricing-action-primary">Começar Agora</div>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Crescimento Exponencial</div>
+                        <div class="pricing-description">Solução completa para maximizar resultados</div>
+                    </div>
+                    <div class="pricing-price">
+                        <div class="pricing-amount">12x de R$ 797</div>
+                        <div class="pricing-period">ou R$ 9.564 à vista</div>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Campanhas ilimitadas</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Criativos ilimitados</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Growth Copilot avançado</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Orquestrador completo</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Relatórios em tempo real</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Suporte 24/7 dedicado</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>Detecção de Fraude Premium</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i>
+                            <div>API e integrações avançadas</div>
+                        </div>
+                    </div>
+                    <div class="pricing-action pricing-action-secondary">Começar Agora</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Pronto para transformar seus resultados?</h2>
+            <p class="cta-subtitle">Comece hoje mesmo e veja a diferença em 30 dias ou seu dinheiro de volta.</p>
+            <div class="cta-button">Agendar Demonstração</div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        F8 COMPANY
+    </div>
+</body>
+</html>

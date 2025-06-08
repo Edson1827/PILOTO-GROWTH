@@ -1,0 +1,470 @@
+/* Dashboard Principal - F8 COMPANY */
+
+/* Estrutura básica do dashboard */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  padding: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Sidebar de navegação */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 240px;
+  background-color: #1E3A8A;
+  color: #FFFFFF;
+  padding: 24px 0;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.sidebar-collapsed {
+  width: 64px;
+}
+
+.sidebar-logo {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu {
+  margin-top: 24px;
+}
+
+.sidebar-menu-item {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 3px solid #3B82F6;
+}
+
+.sidebar-menu-item-icon {
+  margin-right: 16px;
+}
+
+/* Topbar */
+.topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  margin-left: 240px; /* Ajustar com a largura da sidebar */
+}
+
+.topbar-search {
+  flex: 1;
+  max-width: 400px;
+  margin-right: 24px;
+}
+
+.topbar-search input {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #E5E7EB;
+  background-color: #F9FAFB;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.topbar-notification {
+  margin-right: 16px;
+  position: relative;
+}
+
+.topbar-notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #EF4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar-profile {
+  display: flex;
+  align-items: center;
+}
+
+.topbar-profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Cards de KPI */
+.kpi-section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.kpi-card {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-card-title {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 8px;
+}
+
+.kpi-card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.kpi-card-trend {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.kpi-card-trend-positive {
+  color: #10B981;
+}
+
+.kpi-card-trend-negative {
+  color: #EF4444;
+}
+
+/* Gráfico principal */
+.main-chart {
+  grid-column: 1 / 9;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.chart-actions {
+  display: flex;
+}
+
+.chart-action-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #E5E7EB;
+  background-color: #FFFFFF;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.chart-action-button:hover {
+  background-color: #F9FAFB;
+}
+
+.chart-container {
+  height: 300px;
+}
+
+/* Insights da IA */
+.ai-insights {
+  grid-column: 9 / -1;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.insights-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.insights-header-icon {
+  margin-right: 8px;
+  color: #3B82F6;
+}
+
+.insights-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.insight-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.insight-item:last-child {
+  border-bottom: none;
+}
+
+.insight-priority {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.insight-priority-high {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+.insight-priority-medium {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #F59E0B;
+}
+
+.insight-priority-low {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+}
+
+.insight-text {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.insight-action {
+  font-size: 14px;
+  color: #3B82F6;
+  cursor: pointer;
+}
+
+/* Campanhas ativas */
+.active-campaigns {
+  grid-column: 1 / 9;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.campaigns-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.campaigns-table th {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.campaigns-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.campaigns-table tr:last-child td {
+  border-bottom: none;
+}
+
+.campaign-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.campaign-status-active {
+  background-color: #10B981;
+}
+
+.campaign-status-paused {
+  background-color: #F59E0B;
+}
+
+.campaign-status-draft {
+  background-color: #6B7280;
+}
+
+.campaign-performance {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.campaign-performance-good {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+}
+
+.campaign-performance-average {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #F59E0B;
+}
+
+.campaign-performance-poor {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+/* Detecção de fraude */
+.fraud-detection {
+  grid-column: 9 / -1;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fraud-metrics {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.fraud-metric {
+  text-align: center;
+}
+
+.fraud-metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.fraud-metric-label {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.fraud-chart {
+  height: 150px;
+}
+
+/* Responsividade */
+@media (max-width: 1199px) {
+  .sidebar {
+    width: 64px;
+  }
+  
+  .sidebar-menu-item-text {
+    display: none;
+  }
+  
+  .topbar {
+    margin-left: 64px;
+  }
+  
+  .kpi-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .main-chart {
+    grid-column: 1 / -1;
+  }
+  
+  .ai-insights {
+    grid-column: 1 / -1;
+  }
+  
+  .active-campaigns {
+    grid-column: 1 / -1;
+  }
+  
+  .fraud-detection {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .topbar {
+    margin-left: 0;
+    padding: 12px 16px;
+  }
+  
+  .topbar-search {
+    display: none;
+  }
+  
+  .dashboard-container {
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container {
+    height: 200px;
+  }
+  
+  .campaigns-table {
+    font-size: 12px;
+  }
+  
+  .campaigns-table th, 
+  .campaigns-table td {
+    padding: 8px;
+  }
+}

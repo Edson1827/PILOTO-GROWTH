@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 COMPANY - Growth Copilot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #F9FAFB;
+            color: #111827;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 240px;
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            padding: 24px 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .sidebar-logo {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-logo img {
+            height: 32px;
+        }
+        
+        .sidebar-menu {
+            margin-top: 24px;
+        }
+        
+        .sidebar-menu-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .sidebar-menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-menu-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-left: 3px solid #3B82F6;
+        }
+        
+        .sidebar-menu-item-icon {
+            margin-right: 16px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 240px;
+            padding: 24px;
+            min-height: 100vh;
+        }
+        
+        /* Topbar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0 24px 0;
+            border-bottom: 1px solid #E5E7EB;
+            margin-bottom: 24px;
+        }
+        
+        .topbar-left h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .topbar-search {
+            position: relative;
+            margin-right: 24px;
+        }
+        
+        .topbar-search input {
+            padding: 8px 16px 8px 40px;
+            border-radius: 4px;
+            border: 1px solid #E5E7EB;
+            background-color: #F9FAFB;
+            width: 240px;
+        }
+        
+        .topbar-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B7280;
+        }
+        
+        .topbar-notification {
+            margin-right: 16px;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #F9FAFB;
+            cursor: pointer;
+        }
+        
+        .topbar-notification:hover {
+            background-color: #F3F4F6;
+        }
+        
+        .topbar-notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #EF4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .topbar-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .topbar-profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            overflow: hidden;
+        }
+        
+        .topbar-profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .topbar-profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topbar-profile-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .topbar-profile-role {
+            font-size: 12px;
+            color: #6B7280;
+        }
+        
+        /* Growth Copilot Layout */
+        .copilot-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 24px;
+            height: calc(100vh - 150px);
+        }
+        
+        /* Chat Area */
+        .chat-area {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-header-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .chat-header-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .message-user {
+            align-self: flex-end;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            border-bottom-right-radius: 0;
+        }
+        
+        .message-ai {
+            align-self: flex-start;
+            background-color: #F3F4F6;
+            color: #111827;
+            border-bottom-left-radius: 0;
+        }
+        
+        .message-ai-thinking {
+            align-self: flex-start;
+            background-color: #F3F4F6;
+            color: #6B7280;
+            border-bottom-left-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .thinking-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .thinking-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #6B7280;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .thinking-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .thinking-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+        
+        .chat-input-container {
+            padding: 16px 24px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            background-color: #F9FAFB;
+            font-size: 14px;
+            resize: none;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+        
+        .chat-send-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .chat-send-button:hover {
+            background-color: #2563EB;
+        }
+        
+        /* Context Panel */
+        .context-panel {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .context-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .context-content {
+            flex: 1;
+            padding: 16px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .context-section {
+            margin-bottom: 16px;
+        }
+        
+        .context-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+        
+        .context-card {
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            font-size: 14px;
+        }
+        
+        .context-metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .context-metric:last-child {
+            margin-bottom: 0;
+        }
+        
+        .context-metric-label {
+            color: #6B7280;
+        }
+        
+        .context-metric-value {
+            font-weight: 500;
+        }
+        
+        .context-chart {
+            height: 120px;
+            background-color: #F3F4F6;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+            margin-top: 8px;
+        }
+        
+        .suggested-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .suggested-action {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #F3F4F6;
+            color: #111827;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .suggested-action:hover {
+            background-color: #E5E7EB;
+        }
+        
+        .suggested-action i {
+            margin-right: 8px;
+            color: #3B82F6;
+        }
+        
+        /* Quick Suggestions */
+        .quick-suggestions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-suggestion {
+            padding: 6px 12px;
+            border-radius: 16px;
+            background-color: #F3F4F6;
+            color: #374151;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .quick-suggestion:hover {
+            background-color: #E5E7EB;
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-button {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 200;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1199px) {
+            .sidebar {
+                width: 64px;
+            }
+            
+            .sidebar-menu-item-text {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 64px;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .copilot-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .context-panel {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .mobile-menu-button {
+                display: flex;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+                width: 240px;
+            }
+            
+            .sidebar.open .sidebar-menu-item-text {
+                display: inline;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            
+            .topbar {
+                padding-top: 40px;
+            }
+            
+            .topbar-search {
+                display: none;
+            }
+            
+            .chat-messages {
+                padding: 16px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .chat-input-container {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-button">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="https://via.placeholder.com/120x32/1E3A8A/FFFFFF?text=F8+COMPANY" alt="F8 COMPANY">
+        </div>
+        <div class="sidebar-menu">
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Dashboard</div>
+            </div>
+            <div class="sidebar-menu-item active">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Growth Copilot</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Campanhas</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Detecção de Fraude</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Orquestrador</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Audiências</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Relatórios</div>
+            </div>
+            <div class="sidebar-menu-item">
+                <div class="sidebar-menu-item-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="sidebar-menu-item-text">Configurações</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Growth Copilot</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar...">
+                </div>
+                <div class="topbar-notification">
+                    <i class="fas fa-bell"></i>
+                    <div class="topbar-notification-badge">3</div>
+                </div>
+                <div class="topbar-profile">
+                    <div class="topbar-profile-avatar">
+                        <img src="https://via.placeholder.com/40x40" alt="Avatar">
+                    </div>
+                    <div class="topbar-profile-info">
+                        <div class="topbar-profile-name">João Silva</div>
+                        <div class="topbar-profile-role">Administrador</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Growth Copilot Container -->
+        <div class="copilot-container">
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <div class="chat-header">
+                    <div class="chat-header-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-header-title">Growth Copilot IA</div>
+                </div>
+                <div class="chat-messages">
+                    <div class="message message-ai">
+                        Olá, João! Sou o Growth Copilot da F8 COMPANY. Como posso ajudar você hoje com suas estratégias de marketing?
+                    </div>
+                    <div class="message message-user">
+                        Preciso melhorar o desempenho da campanha "Verão 2025". O CPC está muito alto.
+                    </div>
+                    <div class="message message-ai">
+                        Analisei sua campanha "Verão 2025" e identifiquei alguns problemas:
+                        <br><br>
+                        1. O CPC aumentou 28% nas últimas 2 semanas
+                        <br>
+                        2. A segmentação atual está muito ampla
+                        <br>
+                        3. Os criativos têm taxa de engajamento abaixo da média
+                        <br><br>
+                        Posso recomendar ajustes específicos para cada um desses pontos. Por onde você gostaria de começar?
+                    </div>
+                    <div class="message message-user">
+                        Vamos começar pela segmentação. O que você sugere?
+                    </div>
+                    <div class="message message-ai-thinking">
+                        <div class="thinking-dots">
+                            <div class="thinking-dot"></div>
+                            <div class="thinking-dot"></div>
+                            <div class="thinking-dot"></div>
+                        </div>
+                        Analisando dados de segmentação...
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <textarea class="chat-input" placeholder="Digite sua mensagem..." rows="1"></textarea>
+                    <div class="chat-send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                </div>
+                <div class="quick-suggestions">
+                    <div class="quick-suggestion">Como melhorar o ROAS?</div>
+                    <div class="quick-suggestion">Otimizar segmentação</div>
+                    <div class="quick-suggestion">Ideias para novos criativos</div>
+                    <div class="quick-suggestion">Analisar concorrência</div>
+                </div>
+            </div>
+            
+            <!-- Context Panel -->
+            <div class="context-panel">
+                <div class="context-header">
+                    Contexto da Campanha
+                </div>
+                <div class="context-content">
+                    <div class="context-section">
+                        <div class="context-section-title">
+                            Campanha: Verão 2025
+                        </div>
+                        <div class="context-card">
+                            <div class="context-metric">
+                                <div class="context-metric-label">Status:</div>
+                                <div class="context-metric-value">Ativa</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">Orçamento:</div>
+                                <div class="context-metric-value">R$ 5.000/mês</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">Plataformas:</div>
+                                <div class="context-metric-value">Meta, Google</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">Início:</div>
+                                <div class="context-metric-value">01/05/2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="context-section">
+                        <div class="context-section-title">
+                            Métricas Atuais
+                        </div>
+                        <div class="context-card">
+                            <div class="context-metric">
+                                <div class="context-metric-label">Impressões:</div>
+                                <div class="context-metric-value">320.450</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">Cliques:</div>
+                                <div class="context-metric-value">12.818</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">CTR:</div>
+                                <div class="context-metric-value">4.0%</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">CPC:</div>
+                                <div class="context-metric-value">R$ 2.85</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">Conversões:</div>
+                                <div class="context-metric-value">256</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">CPA:</div>
+                                <div class="context-metric-value">R$ 142.50</div>
+                            </div>
+                            <div class="context-metric">
+                                <div class="context-metric-label">ROAS:</div>
+                                <div class="context-metric-value">1.8x</div>
+                            </div>
+                            <div class="context-chart">
+                                [Gráfico de Tendência]
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="context-section">
+                        <div class="context-section-title">
+                            Ações Sugeridas
+                        </div>
+                        <div class="suggested-actions">
+                            <div class="suggested-action">
+                                <i class="fas fa-filter"></i>
+                                Refinar segmentação
+                            </div>
+                            <div class="suggested-action">
+                                <i class="fas fa-image"></i>
+                                Otimizar criativos
+                            </div>
+                            <div class="suggested-action">
+                                <i class="fas fa-chart-line"></i>
+                                Ajustar lances
+                            </div>
+                            <div class="suggested-action">
+                                <i class="fas fa-calendar-alt"></i>
+                                Otimizar horários
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+        
+        // Auto-resize textarea
+        const textarea = document.querySelector('.chat-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    </script>
+</body>
+</html>

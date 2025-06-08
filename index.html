@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 COMPANY - Piloto Visual Interativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #111827;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #FFFFFF;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1E3A8A;
+        }
+        p {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 32px;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        .nav-link:hover {
+            background-color: #2563EB;
+        }
+        .footer {
+            margin-top: 40px;
+            color: #6B7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Piloto Visual Interativo - F8 COMPANY</h1>
+        <p>Navegue pelas diferentes telas do protótipo visual da plataforma F8 COMPANY.</p>
+        <div class="nav-links">
+            <a href="landing_page.html" class="nav-link">Landing Page</a>
+            <a href="onboarding.html" class="nav-link">Onboarding</a>
+            <a href="dashboard.html" class="nav-link">Dashboard Principal</a>
+            <a href="growth_copilot.html" class="nav-link">Growth Copilot (IA)</a>
+            <a href="fraud_detection.html" class="nav-link">Detecção de Fraude</a>
+            <a href="orchestrator.html" class="nav-link">Orquestrador de Campanhas</a>
+            <a href="upsell_modal.html" class="nav-link">Modal de Upsell (Exemplo)</a>
+        </div>
+    </div>
+    <div class="footer">
+        F8 COMPANY
+    </div>
+</body>
+</html>
